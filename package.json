@@ -1,0 +1,28 @@
+{
+  "name": "airbnb_clone",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anant-219/AirBNB-Clone.git"
+  },
+  "author": "Anant",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Anant-219/AirBNB-Clone/issues"
+  },
+  "homepage": "https://github.com/Anant-219/AirBNB-Clone#readme",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "method-override": "^3.0.0",
+    "mongodb": "^6.8.0",
+    "mongoose": "^8.5.2",
+    "nodemon": "^3.1.4",
+    "path": "^0.12.7"
+  }
+}
