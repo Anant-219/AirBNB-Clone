@@ -1,12 +1,72 @@
+/* @font-face {
+    font-family: 'AirbnbCereal_W_Bd';
+    src: url('AirbnbCerealWBd.woff2') format('woff2'),
+        url('AirbnbCerealWBd.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'AirbnbCereal_W_Blk';
+    src: url('AirbnbCerealWBlk.woff2') format('woff2'),
+        url('AirbnbCerealWBlk.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'AirbnbCereal_W_Bk';
+    src: url('AirbnbCerealWBk.woff2') format('woff2'),
+        url('AirbnbCerealWBk.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'AirbnbCereal_W_XBd';
+    src: url('AirbnbCerealWXBd.woff2') format('woff2'),
+        url('AirbnbCerealWXBd.woff') format('woff');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'AirbnbCereal_W_Md';
+    src: url('AirbnbCerealWMd.woff2') format('woff2'),
+        url('AirbnbCerealWMd.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'AirbnbCereal_W_Lt';
+    src: url('AirbnbCerealWLt.woff2') format('woff2'),
+        url('AirbnbCerealWLt.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+} */
+
+/* ------------------------------------------------------------------------------ */
+
+
+
 body {
-    background-color: #C9DABF;
+    background-color: #e3e3e3;
     /* Light gray background for body */
     margin: 0;
     padding: 0;
 }
 
 .navbar {
-    background-color: #9CA986 !important;
+    background-color: #e3e3e3 !important;
+    border-bottom: 0.1px solid black !important;
+    height: 5rem;
 }
 
 #navbarNavAltMarkup {
@@ -51,10 +111,16 @@ body {
 }
 
 nav {
-    font-family: "Rampart One", sans-serif;
-    font-weight: 400;
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 800 !important;
+    font-style: normal !important;
+}
+
+
+.font {
+    font-family: 'AirbnbCereal_W_XBd';
+    font-weight: 800;
     font-style: normal;
-    /* color: black; */
 }
 
 img {
@@ -70,7 +136,7 @@ img {
 
 .card-body {
     flex: 1;
-    background-color: #5F6F65;
+    background-color: #fdbaba;
 }
 
 /* .card-img-top {
@@ -80,7 +146,7 @@ img {
 } */
 
 .container {
-    margin-top: 1.5rem;
+    margin-top: 2rem;
 }
 
 
@@ -112,4 +178,20 @@ img {
 .card:hover .card-img-top {
     transform: scale(1.05);
     /* Slightly zoom in the image */
+}
+
+a {
+    text-decoration: none;
+}
+
+/* Style for the custom horizontal line above the footer */
+.footer-hr {
+    border: 0;
+    height: 1px;
+    background-color: #000000;
+    /* Light grey color */
+    width: 90%;
+    /* Adjust the value as needed for the desired length */
+    margin: 2rem auto;
+    /* Center the line and add top/bottom spacing */
 }

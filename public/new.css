@@ -1,0 +1,212 @@
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+body {
+    padding: 1em;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    color: #b9b9b9;
+    background-color: #e3e3e3;
+}
+
+h4 {
+    color: #FF5A5F;
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 700 !important;
+    font-style: normal !important;
+    margin-bottom: 1rem;
+    text-align: center;
+    /* Adjust the value as needed */
+}
+
+input,
+textarea,
+input[type="radio"]+label,
+input[type="checkbox"]+label:before,
+select option,
+select {
+    width: 100%;
+    padding: 1em;
+    line-height: 1.4;
+    background-color: #e3e3e3;
+    border: 1px solid #f9f9f9;
+    border-radius: 3px;
+    transition: all 0.35s ease-in-out;
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 500 !important;
+    font-style: normal !important;
+}
+
+textarea {
+    resize: vertical;
+    /* Allows the user to resize the textarea vertically */
+}
+
+input:focus,
+textarea:focus {
+    outline: 0;
+    border-color: #FF5A5F;
+}
+
+input:focus+.input-icon i,
+textarea:focus+.input-icon i {
+    color: #FF5A5F;
+    align-items: center;
+    justify-content: center;
+}
+
+input:focus+.input-icon:after,
+textarea:focus+.input-icon:after {
+    border-right-color: #FF5A5F;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 1em;
+}
+
+.input-group-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-group-icon input,
+.input-group-icon textarea {
+    padding-left: 3.8em;
+    /* Adjust for icon width */
+}
+
+.input-icon {
+    position: absolute;
+    left: 1em;
+    /* Adjust as needed */
+    top: 55%;
+    transform: translateY(-50%);
+    width: 2.5em;
+    /* Width of icon container */
+    height: 2.5em;
+    /* Height of icon container */
+    line-height: 2.5em;
+    text-align: center;
+    pointer-events: none;
+}
+
+.input-icon i {
+    font-size: 1.2em;
+    /* Adjust icon size as needed */
+    color: #d15675;
+    align-items: center;
+    transition: color 0.35s ease-in-out;
+}
+
+.container {
+    max-width: 39em;
+    padding: 1em 3em 2em 3em;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 4.2px;
+    box-shadow: 0px 3px 10px -2px rgba(0, 0, 0, 0.2);
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.col-half {
+    width: 48%;
+    margin-bottom: 1em;
+}
+
+@media only screen and (max-width: 540px) {
+    .col-half {
+        width: 100%;
+    }
+}
+
+.btn {
+    background-color: #FF5A5F;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 0.75em 1.5em;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.35s ease-in-out;
+}
+
+.btn:hover {
+    background-color: #e04a4d;
+}
+
+
+/* Checkbox and label */
+input[type="checkbox"] {
+    display: none;
+    border: 1px solid black;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 1em;
+}
+
+.input-group input[type="checkbox"]+label {
+    position: relative;
+    display: block;
+    padding-left: 2.5em;
+    /* Space for custom checkbox */
+    line-height: 1.4;
+    color: #333;
+}
+
+.input-group input[type="checkbox"]+label:before {
+    position: absolute;
+    top: 0.2em;
+    left: 0;
+    display: block;
+    width: 1.5em;
+    height: 1.5em;
+    border: 1px solid #000000;
+    border-radius: 3px;
+    background-color: #fff;
+    content: "";
+    transition: background-color 0.35s ease-in-out;
+}
+
+.input-group input[type="checkbox"]:checked+label:before {
+    background-color: #FF5A5F;
+    border-color: #FF5A5F;
+}
+
+.input-group input[type="checkbox"]:checked+label:after {
+    content: "\f00c";
+    /* FontAwesome checkmark */
+    font-family: FontAwesome;
+    color: #fff;
+    position: absolute;
+    top: 0.25em;
+    left: 0.3em;
+    font-size: 1.1em;
+}
+
+/* Adjust font for the checkbox label */
+.input-group input[type="checkbox"]+label {
+    font-size: 0.9em;
+    color: #333;
+    /* Darker color for better readability */
+}
+
+.custom-hr {
+    border: 0;
+    height: 1px;
+    background-color: #000000;
+    /* Light grey color */
+    margin-bottom: 1rem;
+    /* Adjust the value as needed */
+}
