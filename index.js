@@ -3,6 +3,8 @@ const app = express()
 const path = require('path')
 const mongoose = require('mongoose')
 const methodOverride = require('method-override')
+const multer = require('multer')
+// const upload = multer({ storage: storage })
 const port = '8080'
 const mongo_connection_string = 'mongodb+srv://root:root@cluster0.7hkiyzy.mongodb.net/sample_mflix?retryWrites=true&w=majority&appName=Cluster0'
 
@@ -12,6 +14,8 @@ app.use(methodOverride("_method"));
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
+
+app.use('/uploads', express.static('uploads'));
 
 app.use('/public', express.static(path.join(__dirname, 'public')))
 app.use(express.json())
@@ -36,12 +40,26 @@ const airbnb_data = mongoose.model('airbnb_data', new mongoose.Schema({}, { stri
 const appData = mongoose.model('test', new mongoose.Schema({}, { strict: false }));
 
 // ----------------------------------------------------------------------------------
+// Handling Upload File-
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, path.join(__dirname, 'public/uploads'))
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname)
+    }
+})
+
+const upload = multer({ storage: storage })
 
 
+// ------------------------------------------------------------------------------------
 // Home Route(All Listings)
 app.get('/', async (req, res) => {
 
     all_data = await airbnb_data.find({})
+    //console.log(all_data);
 
     res.render('home.ejs', { all_data });
 })
@@ -51,7 +69,7 @@ app.get('/listing/user/:id', async (req, res) => {
     let { id } = req.params;
     // console.log(id);
     id_data = await airbnb_data.findById(id);
-    console.log(id_data);
+    // console.log(id_data);
 
     // console.log(id_data);
     res.render('edit.ejs', { id_data });
@@ -65,11 +83,15 @@ app.get('/listing/new', (req, res) => {
     res.render('new.ejs');
 })
 
-app.post('/listing/new/add', (req, res) => {
-    // console.log(req.body);
-    // let { property, city, description, beds, guestsSize, bedrooms, price } = req.body
+app.post('/listing/new/add', upload.single('avatar'), (req, res) => {
+    let { property, city, description, beds, guestsSize, bedrooms, price } = req.body
+    let { path } = req.file
 
-    const new_app_data = new appData(req.body);
+    console.log(req.file);
+
+    let new_data = { property, city, description, beds, guestsSize, bedrooms, price, photo: path }
+
+    const new_app_data = new airbnb_data(new_data);
 
     new_app_data.save()
         .then((result) => {

@@ -13,17 +13,20 @@
     <link rel="stylesheet" href="/public/edit.css">
 </head>
 <body>
-    
-<div class="container">
-    <form method="get" action="#" id="myForm">
-        <div class="row">
-            <h4>Property Listing Details</h4>
-            <hr class="custom-hr">
-        <div class="input-group input-group-icon">
-            <label for="name">Property/Villa Name</label>
-            <input type="text" value="<%=id_data.name%>" name="name" required/>
-            <div class="input-icon"><i class="fa-solid fa-house"></i></div>
-        </div>
+    <div class="container">
+        <div class="image-container">
+            <img src="<%=id_data.photo%>" alt="Villa Photos" class="image">
+        </div>    
+        <div class="form-container">
+            <form method="get" action="#" id="myForm">
+                <div class="row">
+                    <h4>Property Listing Details</h4>
+                    <hr class="custom-hr">
+                <div class="input-group input-group-icon">
+                <label for="name">Property/Villa Name</label>
+                <input type="text" value="<%=id_data.name%>" name="name" required/>
+                <div class="input-icon"><i class="fa-solid fa-house"></i></div>
+                </div>
         <div class="input-group input-group-icon">
             <label for="city">City</label>
             <input type="text" value="<%=id_data.city%>" name="city" required/>
@@ -45,7 +48,7 @@
             </div>
         </div>
         <div class="col-half">
-            <div class="input-group input-group-icon">
+            <div class="input-group input-group-icon-2">
                 <label for="guestsSize">GuestsSize</label>
                 <input type="number" value="<%=id_data.guestsSize%>" name="guestsSize" required/>
                 <div class="input-icon"><i class="fa fa-users"></i></div>
@@ -55,14 +58,14 @@
 
         <div class="row">
         <div class="col-half">
-            <div class="input-group input-group-icon">
+            <div class="input-group input-group-icon-2">
                 <label for="bedrooms">Bedrooms</label>
                 <input type="number" value="<%=id_data.bedrooms%>" name="bedrooms" required/>
                 <div class="input-icon"><i class="fa fa-bath"></i></div>
             </div>
         </div>
         <div class="col-half">
-            <div class="input-group input-group-icon">
+            <div class="input-group input-group-icon-2">
                 <label for="price">Price</label>
                 <input type="number" value="<%=id_data.price%>" name="price" required/>
                 <div class="input-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div>
@@ -84,6 +87,7 @@
 
     </form>
     </div>
+</div>
 
     <script>
     document.getElementById('myForm').addEventListener('submit', function(event) {

@@ -1,63 +1,5 @@
-/* @font-face {
-    font-family: 'AirbnbCereal_W_Bd';
-    src: url('AirbnbCerealWBd.woff2') format('woff2'),
-        url('AirbnbCerealWBd.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'AirbnbCereal_W_Blk';
-    src: url('AirbnbCerealWBlk.woff2') format('woff2'),
-        url('AirbnbCerealWBlk.woff') format('woff');
-    font-weight: 900;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'AirbnbCereal_W_Bk';
-    src: url('AirbnbCerealWBk.woff2') format('woff2'),
-        url('AirbnbCerealWBk.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'AirbnbCereal_W_XBd';
-    src: url('AirbnbCerealWXBd.woff2') format('woff2'),
-        url('AirbnbCerealWXBd.woff') format('woff');
-    font-weight: 800;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'AirbnbCereal_W_Md';
-    src: url('AirbnbCerealWMd.woff2') format('woff2'),
-        url('AirbnbCerealWMd.woff') format('woff');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'AirbnbCereal_W_Lt';
-    src: url('AirbnbCerealWLt.woff2') format('woff2'),
-        url('AirbnbCerealWLt.woff') format('woff');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-} */
-
-/* ------------------------------------------------------------------------------ */
-
-
-
 body {
-    background-color: #e3e3e3;
+    background-color: #ffeaed;
     /* Light gray background for body */
     margin: 0;
     padding: 0;
@@ -156,20 +98,28 @@ img {
     height: 100%;
     transition: transform 0.3s, box-shadow 0.3s;
     border: 1px solid transparent;
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 600 !important;
+    font-style: normal !important;
 }
 
 .card:hover {
     transform: translateY(-10px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-color: #FF5A5F;
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 800 !important;
+    font-style: normal !important;
     /* Red border on hover */
 }
 
-.card:hover .card-title,
-.card:hover .card-text {
+.card:hover .card-title {
     color: #FF5A5F;
+    font-weight: 800 !important;
     /* Red text on hover */
 }
+
+
 
 .card-img-top {
     transition: transform 0.3s;
@@ -177,6 +127,7 @@ img {
 
 .card:hover .card-img-top {
     transform: scale(1.05);
+    border-color: #FF5A5F;
     /* Slightly zoom in the image */
 }
 

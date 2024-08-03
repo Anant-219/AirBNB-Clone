@@ -15,12 +15,12 @@
 <body>
     
 <div class="container">
-    <form method="post" action="http://localhost:8080/listing/new/add" id="myForm">
+    <form method="post" action="http://localhost:8080/listing/new/add" id="myForm" enctype="multipart/form-data">
       <div class="row">
         <h4>Property Listing Details</h4>
         <hr class="custom-hr">
       <div class="input-group input-group-icon">
-        <input type="text" placeholder="Property/Villa Name" name="property" required/>
+        <input type="text" placeholder="Property/Villa Name" name="name" required/>
         <div class="input-icon"><i class="fa-solid fa-house"></i></div>
       </div>
         <div class="input-group input-group-icon">
@@ -30,6 +30,10 @@
         <div class="input-group input-group-icon">
           <textarea cols="60" rows="3" placeholder="Description" name="description" required></textarea>
           <div class="input-icon"><i class="fa fa-key"></i></div>
+        </div>
+        <div class="input-group input-group-icon file-area">
+          <input type="file" name="avatar" accept="image/png, image/jpeg" required/>
+          <div class="input-icon"><i class="fa-solid fa-file"></i></div>
         </div>
       </div>
 

@@ -39,12 +39,17 @@
           <div class="col-md-3 mb-4">
             <a href="/listing/user/<%= data._id %>" >
             <div class="card">
-              <img class="card-img-top" src="<%=data.photo%>" alt="Card image cap">
+              <img class="card-img-top" src="<%=data.photo%>" alt="Villa Image">
               <div class="card-body text-center">
                 <h5 class="card-title"><%=data.name%></h5>
                 <div class="d-flex justify-content-between">
                   <p class="card-text mb-0"><%=data.city%></p>
-                  <p class="card-text mb-0"><small class="text-muted"><%=data.price%></small></p>
+                  <p class="card-text mb-0 price-i">
+                    <small class="text-muted">
+                      <i class="fa-solid fa-indian-rupee-sign">
+                      <%=data.price%></i>/Night
+                    </small>
+                  </p>
                 </div>
               </div>
             </div>
