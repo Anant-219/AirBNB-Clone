@@ -15,7 +15,7 @@ app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
 
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
 
 app.use('/public', express.static(path.join(__dirname, 'public')))
 app.use(express.json())
@@ -69,9 +69,6 @@ app.get('/listing/user/:id', async (req, res) => {
     let { id } = req.params;
     // console.log(id);
     id_data = await airbnb_data.findById(id);
-    // console.log(id_data);
-
-    // console.log(id_data);
     res.render('edit.ejs', { id_data });
 })
 
@@ -85,11 +82,11 @@ app.get('/listing/new', (req, res) => {
 
 app.post('/listing/new/add', upload.single('avatar'), (req, res) => {
     let { property, city, description, beds, guestsSize, bedrooms, price } = req.body
-    let { path } = req.file
+    let { path: filePath } = req.file
 
     console.log(req.file);
-
-    let new_data = { property, city, description, beds, guestsSize, bedrooms, price, photo: path }
+    let filename = path.basename(filePath);
+    let new_data = { property, city, description, beds, guestsSize, bedrooms, price, photo: filename }
 
     const new_app_data = new airbnb_data(new_data);
 
