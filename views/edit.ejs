@@ -25,7 +25,7 @@
             <!-- <img src="/uploads/<%=id_data.photo%>" alt="Villa Photos" class="image"> -->
         </div>    
         <div class="form-container">
-            <form method="get" action="#" id="myForm">
+            <form method="POST" action="/listing/user/<%=id_data._id%>?_method=PATCH" id="myForm">
                 <div class="row">
                     <h4>Property Listing Details</h4>
                     <hr class="custom-hr">

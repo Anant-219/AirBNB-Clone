@@ -76,6 +76,37 @@ app.get('/listing/user/:id', async (req, res) => {
     res.render('edit.ejs', { id_data });
 })
 
+app.patch('/listing/user/:id', async (req, res) => {
+    let { name, city, description, beds, guestsSize, bedrooms, price } = req.body
+
+    let { id } = req.params;
+
+
+    id_data = await airbnb_data.findById(id);
+    console.log(id_data);
+
+
+
+    const updatedData = await airbnb_data.findByIdAndUpdate(
+        id,
+        {
+            $set: { name, city, description, beds, guestsSize, bedrooms, price }
+        },
+        { new: true, runValidators: true } // Options: new returns the updated document
+    );
+
+    if (!updatedData) {
+        return res.status(404).json({ message: 'Listing not found' });
+    }
+
+
+    id_data = await airbnb_data.findById(id);
+    console.log(id_data);
+
+    res.redirect("/");
+})
+
+
 
 // Create Route
 app.get('/listing/new', (req, res) => {
@@ -102,14 +133,14 @@ app.post('/listing/new/add', upload.single('avatar'), (req, res) => {
 })
 
 
-// Delete Route
-app.get('/listing/user/:id', async (req, res) => {
-    let { id } = req.params;
-    // console.log(id);
-    id_data = await airbnb_data.findById(id);
-    // console.log(id_data);
-    res.render('edit.ejs', { id_data });
-})
+// // Delete Route
+// app.get('/listing/user/:id', async (req, res) => {
+//     let { id } = req.params;
+//     // console.log(id);
+//     id_data = await airbnb_data.findById(id);
+//     // console.log(id_data);
+//     res.render('edit.ejs', { id_data });
+// })
 
 
 
