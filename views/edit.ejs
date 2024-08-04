@@ -15,7 +15,14 @@
 <body>
     <div class="container">
         <div class="image-container">
-            <img src="/uploads/<%=id_data.photo%>" alt="Villa Photos" class="image">
+
+            <% if (id_data.photo.startsWith('http')) { %>
+                <img src="<%=id_data.photo%>" alt="Villa Photos" class="image">
+              <% } else { %>
+                <img src="/uploads/<%=id_data.photo%>" alt="Villa Photos" class="image">
+              <% } %>
+
+            <!-- <img src="/uploads/<%=id_data.photo%>" alt="Villa Photos" class="image"> -->
         </div>    
         <div class="form-container">
             <form method="get" action="#" id="myForm">
