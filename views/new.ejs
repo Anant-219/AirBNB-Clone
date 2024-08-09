@@ -15,24 +15,27 @@
 <body>
     
 <div class="container">
-    <form method="post" action="http://localhost:8080/listing/new/add" id="myForm" enctype="multipart/form-data">
+    <form method="post" action="http://localhost:8080/listing/new/add" id="myForm" enctype="multipart/form-data" class="needs-validation" novalidate >
       <div class="row">
         <h4>Property Listing Details</h4>
         <hr class="custom-hr">
       <div class="input-group input-group-icon">
-        <input type="text" placeholder="Property/Villa Name" name="name" required/>
+        <input type="text" placeholder="Property/Villa Name" name="name" class="form-control" required/>
         <div class="input-icon"><i class="fa-solid fa-house"></i></div>
+        <!-- <div class="valid-feedback">
+          Looks good!
+        </div> -->
       </div>
         <div class="input-group input-group-icon">
-          <input type="text" placeholder="City" name="city" required/>
+          <input type="text" placeholder="City" name="city" class="form-control" required/>
           <div class="input-icon"><i class="fa-solid fa-city"></i></div>
         </div>
         <div class="input-group input-group-icon">
-          <textarea cols="60" rows="3" placeholder="Description" name="description" required></textarea>
+          <textarea cols="60" rows="3" placeholder="Description" name="description" class="form-control" required></textarea>
           <div class="input-icon"><i class="fa fa-key"></i></div>
         </div>
         <div class="input-group input-group-icon file-area">
-          <input type="file" name="avatar" accept="image/png, image/jpeg" required/>
+          <input type="file" name="avatar" accept="image/png, image/jpeg" class="form-control" required/>
           <div class="input-icon"><i class="fa-solid fa-file"></i></div>
         </div>
       </div>
@@ -40,13 +43,13 @@
       <div class="row">
         <div class="col-half">
           <div class="input-group input-group-icon">
-            <input type="number" placeholder="No of Beds" name="beds" required/>
+            <input type="number" placeholder="No of Beds" name="beds" class="form-control"required/>
             <div class="input-icon"><i class="fa fa-bed"></i></div>
           </div>
         </div>
         <div class="col-half">
           <div class="input-group input-group-icon">
-            <input type="number" placeholder="Guest Size" name="guestsSize" required/>
+            <input type="number" placeholder="Guest Size" name="guestsSize" class="form-control" required/>
             <div class="input-icon"><i class="fa fa-users"></i></div>
           </div>
         </div>
@@ -55,13 +58,13 @@
       <div class="row">
         <div class="col-half">
           <div class="input-group input-group-icon">
-            <input type="number" placeholder="No of Bathrooms" name="bathrooms" required/>
+            <input type="number" placeholder="No of Bathrooms" name="bathrooms" class="form-control" required/>
             <div class="input-icon"><i class="fa fa-bath"></i></div>
           </div>
         </div>
         <div class="col-half">
           <div class="input-group input-group-icon">
-            <input type="number" placeholder="Price Per Night" name="price" required/>
+            <input type="number" placeholder="Price Per Night" name="price" class="form-control" required/>
             <div class="input-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div>
           </div>
         </div>
@@ -92,6 +95,28 @@
             alert('You must accept the terms and conditions to submit the form.');
         }
     });
+
+
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+      .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+
+          form.classList.add('was-validated')
+        }, false)
+      })
+    })()
   </script>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
