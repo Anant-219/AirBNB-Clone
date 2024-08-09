@@ -146,3 +146,7 @@ a {
     margin: 2rem auto;
     /* Center the line and add top/bottom spacing */
 }
+
+.btn {
+    background-color: #FF5A5F;
+}

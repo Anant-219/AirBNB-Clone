@@ -33,10 +33,53 @@ main().then((res) => {
     console.log('connection Successfull!');
     // console.log(res);
 }).catch((err) => {
-    console.log("Errror", err);
+    console.log("Error while connecting to Database!", err);
 })
 
-const airbnb_data = mongoose.model('airbnb_data', new mongoose.Schema({}, { strict: false }));
+
+// Schema Defination
+
+const airbnb_schema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+        uppercase: true
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true,
+        min: 0
+    },
+    photo: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    guestsSize: {
+        type: Number,
+        required: true,
+        min: 0
+    },
+    beds: {
+        type: Number,
+        required: true,
+        min: 0
+    },
+    bathrooms: {
+        type: Number,
+        required: true,
+        min: 0
+    }
+});
+
+const airbnb_data = mongoose.model('airbnb_data', airbnb_schema);
 const appData = mongoose.model('test', new mongoose.Schema({}, { strict: false }));
 
 // ----------------------------------------------------------------------------------
@@ -52,7 +95,6 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({ storage: storage })
-
 
 // ------------------------------------------------------------------------------------
 // Home Route(All Listings)
@@ -114,12 +156,12 @@ app.get('/listing/new', (req, res) => {
 })
 
 app.post('/listing/new/add', upload.single('avatar'), (req, res) => {
-    let { name, city, description, beds, guestsSize, bedrooms, price } = req.body
+    let { name, city, description, beds, guestsSize, bathrooms, price } = req.body
     let { path: filePath } = req.file
 
     console.log(req.file);
     let filename = path.basename(filePath);
-    let new_data = { name, city, description, beds, guestsSize, bedrooms, price, photo: filename }
+    let new_data = { name, city, description, beds, guestsSize, bathrooms, price, photo: filename }
 
     const new_app_data = new airbnb_data(new_data);
 
