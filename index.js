@@ -36,7 +36,7 @@ main().then((res) => {
     console.log("Error while connecting to Database!", err);
 })
 
-
+// ------------------------------------------------------------------------------------
 // Schema Defination
 
 const airbnb_schema = new mongoose.Schema({
@@ -104,10 +104,10 @@ app.get('/', async (req, res) => {
     // console.log("Alll Data-------------------------------------");
     // console.log(all_data);
     // console.log('----------------------------------------------');
-
     res.render('home.ejs', { all_data });
 })
 
+// ------------------------------------------------------------------------------------
 
 // Show Route
 app.get('/listing/user/:id', async (req, res) => {
@@ -119,15 +119,12 @@ app.get('/listing/user/:id', async (req, res) => {
 })
 
 app.patch('/listing/user/:id', async (req, res) => {
-    let { name, city, description, beds, guestsSize, bedrooms, price } = req.body
 
+    let { name, city, description, beds, guestsSize, bedrooms, price } = req.body
     let { id } = req.params;
 
-
     id_data = await airbnb_data.findById(id);
-    console.log(id_data);
-
-
+    // console.log(id_data);
 
     const updatedData = await airbnb_data.findByIdAndUpdate(
         id,
@@ -141,14 +138,12 @@ app.patch('/listing/user/:id', async (req, res) => {
         return res.status(404).json({ message: 'Listing not found' });
     }
 
-
     id_data = await airbnb_data.findById(id);
-    console.log(id_data);
-
+    // console.log(id_data);
     res.redirect("/");
 })
 
-
+// ------------------------------------------------------------------------------------
 
 // Create Route
 app.get('/listing/new', (req, res) => {
@@ -159,7 +154,7 @@ app.post('/listing/new/add', upload.single('avatar'), (req, res) => {
     let { name, city, description, beds, guestsSize, bathrooms, price } = req.body
     let { path: filePath } = req.file
 
-    console.log(req.file);
+    // console.log(req.file);
     let filename = path.basename(filePath);
     let new_data = { name, city, description, beds, guestsSize, bathrooms, price, photo: filename }
 
@@ -167,27 +162,35 @@ app.post('/listing/new/add', upload.single('avatar'), (req, res) => {
 
     new_app_data.save()
         .then((result) => {
-            console.log("Data Added!");
+            // console.log("Data Added!");
             res.redirect("/");
         }).catch((err) => {
             console.log("Error happend", err);
         })
 })
 
+// ------------------------------------------------------------------------------------
+// Delete Route
+app.delete('/listing/user/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        // console.log(id);
+        await airbnb_data.findByIdAndDelete(id)
+            .then(() => {
+                res.redirect('/');
+            })
 
-// // Delete Route
-// app.get('/listing/user/:id', async (req, res) => {
-//     let { id } = req.params;
-//     // console.log(id);
-//     id_data = await airbnb_data.findById(id);
-//     // console.log(id_data);
-//     res.render('edit.ejs', { id_data });
-// })
+        // Redirect to a relevant page after deletion
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+})
 
-
-
-
+// ------------------------------------------------------------------------------------
 
 app.listen(port, (req, res) => {
     console.log(`App is listening on port ${port}`);
 })
+
+// ------------------------------------------------------------------------------------

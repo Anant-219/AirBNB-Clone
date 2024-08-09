@@ -15,97 +15,100 @@
 <body>
     <div class="container">
         <div class="image-container">
-
             <% if (id_data.photo.startsWith('http')) { %>
                 <img src="<%=id_data.photo%>" alt="Villa Photos" class="image">
-              <% } else { %>
+            <% } else { %>
                 <img src="/uploads/<%=id_data.photo%>" alt="Villa Photos" class="image">
-              <% } %>
+            <% } %>
 
-            <!-- <img src="/uploads/<%=id_data.photo%>" alt="Villa Photos" class="image"> -->
+            <form action="/listing/user/<%=id_data._id%>?_method=DELETE" method="POST" class="delete-form">
+                <div class="row">
+                    <button type="submit" class="btn btn-danger delete-button" style="align-items:center;font-family: Poppins;font-weight: 500;font-style: normal ;margin-top: 1rem;" id="deleteButton">Delete Listing</button>
+                </div>
+            </form>
         </div>    
         <div class="form-container">
             <form method="POST" action="/listing/user/<%=id_data._id%>?_method=PATCH" id="myForm">
                 <div class="row">
                     <h4>Property Listing Details</h4>
                     <hr class="custom-hr">
-                <div class="input-group input-group-icon">
-                <label for="name">Property/Villa Name</label>
-                <input type="text" value="<%=id_data.name%>" name="name" required/>
-                <div class="input-icon"><i class="fa-solid fa-house"></i></div>
+                    <div class="input-group input-group-icon">
+                        <label for="name">Property/Villa Name</label>
+                        <input type="text" value="<%=id_data.name%>" name="name" required/>
+                        <div class="input-icon"><i class="fa-solid fa-house"></i></div>
+                    </div>
+                    <div class="input-group input-group-icon">
+                        <label for="city">City</label>
+                        <input type="text" value="<%=id_data.city%>" name="city" required/>
+                        <div class="input-icon"><i class="fa-solid fa-city"></i></div>
+                    </div>
+                    <div class="input-group input-group-icon">
+                        <label for="description">Description</label>
+                        <textarea cols="60" rows="3"  name="description" required><%=id_data.description%></textarea>
+                        <div class="input-icon"><i class="fa fa-key"></i></div>
+                    </div>
                 </div>
-        <div class="input-group input-group-icon">
-            <label for="city">City</label>
-            <input type="text" value="<%=id_data.city%>" name="city" required/>
-            <div class="input-icon"><i class="fa-solid fa-city"></i></div>
-        </div>
-        <div class="input-group input-group-icon">
-            <label for="description">Description</label>
-            <textarea cols="60" rows="3"  name="description" required><%=id_data.description%></textarea>
-            <div class="input-icon"><i class="fa fa-key"></i></div>
-        </div>
-        </div>
 
-        <div class="row">
-        <div class="col-half">
-            <div class="input-group input-group-icon">
-                <label for="beds">Beds</label>
-                <input type="number" value="<%=id_data.beds%>" name="beds" required/>
-                <div class="input-icon"><i class="fa fa-bed"></i></div>
-            </div>
-        </div>
-        <div class="col-half">
-            <div class="input-group input-group-icon-2">
-                <label for="guestsSize">GuestsSize</label>
-                <input type="number" value="<%=id_data.guestsSize%>" name="guestsSize" required/>
-                <div class="input-icon"><i class="fa fa-users"></i></div>
-            </div>
-        </div>
-        </div>
+                <div class="row">
+                    <div class="col-half">
+                        <div class="input-group input-group-icon">
+                            <label for="beds">Beds</label>
+                            <input type="number" value="<%=id_data.beds%>" name="beds" required/>
+                            <div class="input-icon"><i class="fa fa-bed"></i></div>
+                        </div>
+                    </div>
+                    <div class="col-half">
+                        <div class="input-group input-group-icon-2">
+                            <label for="guestsSize">GuestsSize</label>
+                            <input type="number" value="<%=id_data.guestsSize%>" name="guestsSize" required/>
+                            <div class="input-icon"><i class="fa fa-users"></i></div>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="row">
-        <div class="col-half">
-            <div class="input-group input-group-icon-2">
-                <label for="bathrooms">Bathrooms</label>
-                <input type="number" value="<%=id_data.bathrooms%>" name="bathrooms" required/>
-                <div class="input-icon"><i class="fa fa-bath"></i></div>
-            </div>
-        </div>
-        <div class="col-half">
-            <div class="input-group input-group-icon-2">
-                <label for="price">Price</label>
-                <input type="number" value="<%=id_data.price%>" name="price" required/>
-                <div class="input-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div>
-            </div>
-        </div>
-        </div>
+                <div class="row">
+                    <div class="col-half">
+                        <div class="input-group input-group-icon-2">
+                            <label for="bathrooms">Bathrooms</label>
+                            <input type="number" value="<%=id_data.bathrooms%>" name="bathrooms" required/>
+                            <div class="input-icon"><i class="fa fa-bath"></i></div>
+                        </div>
+                    </div>
+                    <div class="col-half">
+                        <div class="input-group input-group-icon-2">
+                            <label for="price">Price</label>
+                            <input type="number" value="<%=id_data.price%>" name="price" required/>
+                            <div class="input-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+                        </div>
+                    </div>
+                </div>
         
-        <div class="row">
-        <h4>Terms and Conditions</h4>
-        <div class="input-group">
-            <input id="terms" type="checkbox" />
-            <label for="terms" style="font-family: Poppins;font-weight: 500;font-style: normal">I accept the terms and conditions for signing up to this service, and hereby confirm I have read the privacy policy.</label>
-        </div>
-        </div>
+                <div class="row">
+                    <h4>Terms and Conditions</h4>
+                    <div class="input-group">
+                        <input id="terms" type="checkbox" />
+                        <label for="terms" style="font-family: Poppins;font-weight: 500;font-style: normal">I accept the terms and conditions for signing up to this service, and hereby confirm I have read the privacy policy.</label>
+                    </div>
+                </div>
 
-        <div class="row">
-            <button type="submit" class="btn btn-primary" style="font-family: Poppins;font-weight: 500;font-style: normal">Edit Info</button>
+                <div class="row">
+                    <button type="submit" class="btn btn-primary" style="font-family: Poppins;font-weight: 500;font-style: normal">Edit Info</button>
+                </div>
+            </form>
         </div>
-
-    </form>
     </div>
-</div>
 
     <script>
-    document.getElementById('myForm').addEventListener('submit', function(event) {
-        const checkbox = document.getElementById('terms');
-        if (!checkbox.checked) {
-            // Prevent form submission
-            event.preventDefault();
-            // Optional: Display a message to the user
-            alert('You must accept the terms and conditions to submit the form.');
-        }
-    });
+        document.getElementById('myForm').addEventListener('submit', function(event) {
+            const checkbox = document.getElementById('terms');
+            if (!checkbox.checked) {
+                // Prevent form submission
+                event.preventDefault();
+                // Optional: Display a message to the user
+                alert('You must accept the terms and conditions to submit the form!');
+            }
+        });
+
     </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
