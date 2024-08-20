@@ -4,6 +4,8 @@ const path = require('path')
 const mongoose = require('mongoose')
 const methodOverride = require('method-override')
 const multer = require('multer')
+const Customerror = require('./Error Handling/Custom_Error_Class')
+const { schema } = require('./model/Schema_Error_Handling')
 // const upload = multer({ storage: storage })
 const port = '8080'
 const mongo_connection_string = 'mongodb+srv://root:root@cluster0.7hkiyzy.mongodb.net/sample_mflix?retryWrites=true&w=majority&appName=Cluster0'
@@ -25,13 +27,11 @@ app.use(express.json())
 
 const main = async () => {
     await mongoose.connect(mongo_connection_string);
-    // console.log("Connected Successfully");
-    // mongoose.close()
 }
 
 main().then((res) => {
     console.log('connection Successfull!');
-    // console.log(res);
+
 }).catch((err) => {
     console.log("Error while connecting to Database!", err);
 })
@@ -97,34 +97,45 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 // ------------------------------------------------------------------------------------
-// Home Route(All Listings)
-app.get('/', async (req, res) => {
+// Error Handling 
 
+function asyncWrap(fn) {
+    return function (req, res, next) {
+        fn(req, res, next).catch((err) => next(err));
+    }
+}
+
+// ------------------------------------------------------------------------------------
+// Home Route(All Listings)
+app.get('/', asyncWrap(async (req, res, next) => {
     all_data = await airbnb_data.find({})
-    // console.log("Alll Data-------------------------------------");
-    // console.log(all_data);
-    // console.log('----------------------------------------------');
+
+    if (!all_data) {
+        next(new Customerror(404, "Data Not Found in Database!"))
+    }
+
     res.render('home.ejs', { all_data });
-})
+}))
 
 // ------------------------------------------------------------------------------------
 
 // Show Route
-app.get('/listing/user/:id', async (req, res) => {
+app.get('/listing/user/:id', asyncWrap(async (req, res, next) => {
     let { id } = req.params;
-    // console.log(id);
+
     id_data = await airbnb_data.findById(id);
-    // console.log(id_data);
+
+    if (!id_data) {
+        next(new Customerror(404, `Data Not Found for ID - ${id}!`))
+    }
     res.render('edit.ejs', { id_data });
-})
+}))
 
-app.patch('/listing/user/:id', async (req, res) => {
-
+app.patch('/listing/user/:id', asyncWrap(async (req, res, next) => {
     let { name, city, description, beds, guestsSize, bedrooms, price } = req.body
     let { id } = req.params;
 
     id_data = await airbnb_data.findById(id);
-    // console.log(id_data);
 
     const updatedData = await airbnb_data.findByIdAndUpdate(
         id,
@@ -138,55 +149,68 @@ app.patch('/listing/user/:id', async (req, res) => {
         return res.status(404).json({ message: 'Listing not found' });
     }
 
-    id_data = await airbnb_data.findById(id);
-    // console.log(id_data);
     res.redirect("/");
-})
-
+}))
 // ------------------------------------------------------------------------------------
 
 // Create Route
-app.get('/listing/new', (req, res) => {
+app.get('/listing/new', (req, res, next) => {
     res.render('new.ejs');
 })
 
-app.post('/listing/new/add', upload.single('avatar'), (req, res) => {
-    let { name, city, description, beds, guestsSize, bathrooms, price } = req.body
-    let { path: filePath } = req.file
+app.post('/listing/new/add', upload.single('avatar'), (req, res, next) => {
+    try {
+        let { name, city, description, beds, guestsSize, bathrooms, price } = req.body
+        let { path: filePath } = req.file
 
-    // console.log(req.file);
-    let filename = path.basename(filePath);
-    let new_data = { name, city, description, beds, guestsSize, bathrooms, price, photo: filename }
+        let filename = path.basename(filePath);
+        let new_data = { name, city, description, beds, guestsSize, bathrooms, price, photo: filename }
 
-    const new_app_data = new airbnb_data(new_data);
 
-    new_app_data.save()
-        .then((result) => {
-            // console.log("Data Added!");
-            res.redirect("/");
-        }).catch((err) => {
-            console.log("Error happend", err);
-        })
+        // Schema Validation(Error Handling)
+        // let result = schema.validate(req.body);
+        // console.log(result);
+
+        const new_app_data = new airbnb_data(new_data);
+
+        new_app_data.save()
+
+        res.redirect("/");
+    } catch (err) {
+        const error = new Customerror(401, "Error while saving Data");
+        next(error)
+    }
 })
 
 // ------------------------------------------------------------------------------------
 // Delete Route
-app.delete('/listing/user/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-        // console.log(id);
-        await airbnb_data.findByIdAndDelete(id)
-            .then(() => {
-                res.redirect('/');
-            })
+app.delete('/listing/user/:id', asyncWrap(async (req, res, next) => {
+    const { id } = req.params;
+    await airbnb_data.findByIdAndDelete(id)
+        .then(() => {
+            res.redirect('/');
+        })
 
-        // Redirect to a relevant page after deletion
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error');
-    }
+}))
+
+// ------------------------------------------------------------------------------------
+// Error Handling Middleware
+
+app.use((err, req, res, next) => {
+    // console.log("Error Happened!");
+    // console.log("Error Name -", err.name);
+    // console.log(err.message)
+    // console.log("At Route -", req.method, req.originalUrl);  // Logs the method and the route where the error occurred
+    // console.log("Stack Trace -", err.stack);  // Optional: Logs the stack trace for more detailed debugging
+    res.render('error.ejs', { err })
+    // next(err)
 })
 
+// ------------------------------------------------------------------------------------
+app.use("*", (req, res, next) => {
+    res.render('404.ejs')
+    // res.status(404).send("Page Not Exits!");
+})
 // ------------------------------------------------------------------------------------
 
 app.listen(port, (req, res) => {
