@@ -6,6 +6,7 @@ const methodOverride = require('method-override')
 const multer = require('multer')
 const Customerror = require('./Error Handling/Custom_Error_Class')
 const { schema } = require('./model/Schema_Error_Handling')
+const Review = require("./model/review.js")
 // const upload = multer({ storage: storage })
 const port = '8080'
 const mongo_connection_string = 'mongodb+srv://root:root@cluster0.7hkiyzy.mongodb.net/sample_mflix?retryWrites=true&w=majority&appName=Cluster0'
@@ -76,7 +77,11 @@ const airbnb_schema = new mongoose.Schema({
         type: Number,
         required: true,
         min: 0
-    }
+    },
+    reviews: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Review"
+    }]
 });
 
 const airbnb_data = mongoose.model('airbnb_data', airbnb_schema);
@@ -123,7 +128,8 @@ app.get('/', asyncWrap(async (req, res, next) => {
 app.get('/listing/user/:id', asyncWrap(async (req, res, next) => {
     let { id } = req.params;
 
-    id_data = await airbnb_data.findById(id);
+    id_data = await airbnb_data.findById(id).populate('reviews');
+    // console.log(id_data.reviews)
 
     if (!id_data) {
         next(new Customerror(404, `Data Not Found for ID - ${id}!`))
@@ -192,6 +198,39 @@ app.delete('/listing/user/:id', asyncWrap(async (req, res, next) => {
         })
 
 }))
+
+// Review Routes--------------------------------------------------------------
+
+app.post('/reviews/new/add/:id', async (req, res, next) => {
+    try {
+
+        let { rating, comment } = req.body
+        let { id } = req.params
+
+        let new_review = { rating, comment }
+
+        const new_review_data = new Review(new_review);
+
+        await new_review_data.save()
+
+        id_data = await airbnb_data.findById(id);
+
+        id_data.reviews.push(new_review_data)
+        await id_data.save()
+
+        res.redirect(`/listing/user/${id}`);
+    } catch (err) {
+        const error = new Customerror(401, "Error while saving Data");
+        next(error)
+    }
+})
+
+
+
+
+
+
+
 
 // ------------------------------------------------------------------------------------
 // Error Handling Middleware
