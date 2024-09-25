@@ -220,11 +220,29 @@ app.post('/reviews/new/add/:id', async (req, res, next) => {
 
         res.redirect(`/listing/user/${id}`);
     } catch (err) {
-        const error = new Customerror(401, "Error while saving Data");
+        const error = new Customerror(401, "Error while saving New Review Data");
         next(error)
     }
 })
 
+
+app.delete('/reviews/:review_id', async (req, res, next) => {
+    try {
+        const { review_id } = req.params;
+        const { listing_id } = req.body;
+        // console.log(review_id)
+        const deletedReview = await Review.findByIdAndDelete(review_id);
+        if (!deletedReview) {
+            console.log('No review found with that ID');
+            return res.status(404).send('Review not found');
+        }
+        // console.log('Review Deleted:', deletedReview);
+        res.redirect(`/listing/user/${listing_id}`);
+    } catch (err) {
+        const error = new Customerror(401, "Error while Deleting Review Data");
+        next(error)
+    }
+})
 
 
 
