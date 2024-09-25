@@ -119,7 +119,11 @@
                         <div class="card-body">
                             <h5 class="card-title">Anonymous User</h5>
                             <p class="card-text"><%=data.comment%></p>
-                            <p class="card-text"><i class="fas fa-star rating-star"></i><%=data.rating%>/5</p>
+                            <p class="card-text"><i class="fas fa-star rating-star"></i> <%=data.rating%>/5</p>
+                            <form action="/reviews/<%=data._id%>?_method=DELETE" method="POST">
+                                <input type="hidden" name="listing_id" value="<%=id_data.id%>">
+                                <button type="submit" class="btn btn-secondary btn-sm">Delete Review</button>
+                            </form>
                         </div>
                     </div>
                 </div>
