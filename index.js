@@ -7,6 +7,7 @@ const multer = require('multer')
 const Customerror = require('./Error Handling/Custom_Error_Class')
 const { schema } = require('./model/Schema_Error_Handling')
 const Review = require("./model/review.js")
+const airbnb_data = require("./model/listing")
 // const upload = multer({ storage: storage })
 const port = '8080'
 const mongo_connection_string = 'mongodb+srv://root:root@cluster0.7hkiyzy.mongodb.net/sample_mflix?retryWrites=true&w=majority&appName=Cluster0'
@@ -36,56 +37,6 @@ main().then((res) => {
 }).catch((err) => {
     console.log("Error while connecting to Database!", err);
 })
-
-// ------------------------------------------------------------------------------------
-// Schema Defination
-
-const airbnb_schema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-        uppercase: true
-    },
-    city: {
-        type: String,
-        required: true
-    },
-    price: {
-        type: Number,
-        required: true,
-        min: 0
-    },
-    photo: {
-        type: String,
-        required: true
-    },
-    description: {
-        type: String,
-        required: true
-    },
-    guestsSize: {
-        type: Number,
-        required: true,
-        min: 0
-    },
-    beds: {
-        type: Number,
-        required: true,
-        min: 0
-    },
-    bathrooms: {
-        type: Number,
-        required: true,
-        min: 0
-    },
-    reviews: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Review"
-    }]
-});
-
-const airbnb_data = mongoose.model('airbnb_data', airbnb_schema);
-const appData = mongoose.model('test', new mongoose.Schema({}, { strict: false }));
 
 // ----------------------------------------------------------------------------------
 // Handling Upload File-
@@ -248,12 +199,6 @@ app.delete('/reviews/:review_id', async (req, res, next) => {
         next(error)
     }
 })
-
-
-
-
-
-
 
 // ------------------------------------------------------------------------------------
 // Error Handling Middleware
