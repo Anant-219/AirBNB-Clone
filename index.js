@@ -231,6 +231,11 @@ app.delete('/reviews/:review_id', async (req, res, next) => {
         const { review_id } = req.params;
         const { listing_id } = req.body;
         // console.log(review_id)
+        const updatedData = await airbnb_data.findByIdAndUpdate(listing_id, { $pull: { reviews: review_id } });
+
+        if (!updatedData) {
+            return res.status(404).json({ message: 'Listing not found' });
+        }
         const deletedReview = await Review.findByIdAndDelete(review_id);
         if (!deletedReview) {
             console.log('No review found with that ID');
