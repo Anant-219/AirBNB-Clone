@@ -26,7 +26,7 @@
           <div class="navbar-nav">
             <a class="nav-item nav-link active" href="#">Home</a>
             <a class="nav-item nav-link" href="#">All Listings</a>
-            <a class="nav-item nav-link" href="/listing/new">Add New Listing</a>
+            <a class="nav-item nav-link" href="/listings/new">Add New Listing</a>
           </div>
         </div>
     </nav>
@@ -37,7 +37,7 @@
       <div class="row" id="card-container">
         <% for(let data of all_data){ %>
           <div class="col-md-3 mb-4">
-            <a href="/listing/user/<%= data._id %>" >
+            <a href="/listings/user/<%= data._id %>" >
             <div class="card">
               <% if (data.photo.startsWith('http')) { %>
                 <img class="card-img-top" src="<%= data.photo %>" alt="Villa Image">

@@ -22,14 +22,14 @@
                     <img src="/uploads/<%=id_data.photo%>" alt="Villa Photos" class="image">
                 <% } %>
 
-                <form action="/listing/user/<%=id_data._id%>?_method=DELETE" method="POST" class="delete-form">
+                <form action="/listings/user/<%=id_data._id%>?_method=DELETE" method="POST" class="delete-form">
                     <div class="row">
                         <button type="submit" class="btn btn-danger delete-button" style="align-items:center;font-family: Poppins;font-weight: 500;font-style: normal ;margin-top: 1rem;" id="deleteButton">Delete Listing</button>
                     </div>
                 </form>
             </div>    
             <div class="form-container">
-                <form method="POST" action="/listing/user/<%=id_data._id%>?_method=PATCH" id="myForm">
+                <form method="POST" action="/listings/user/<%=id_data._id%>?_method=PATCH" id="myForm">
                     <div class="row">
                         <h4>Property Listing Details</h4>
                         <hr class="custom-hr">
